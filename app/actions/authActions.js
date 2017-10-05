@@ -2,30 +2,54 @@ import firebase, { auth } from '../firebase/firebase';
 import axios from 'axios';
 
 export const emailSignUp = (name, email, pw) => {
-  auth.createUserWithEmailAndPassword(newEmail, pw)
-    .then(result => {
-      dispatch({type: 'USER_SIGNUP_PENDING'});
-      axios.post('/api/user', {
-        userName: name,
-        userEmail: email
-      })
-        .then(({ data }) => {
-          dispatch({type: 'USER_SIGNUP_FULFILLED', payload: data});
+  return function(dispatch) {
+    auth.createUserWithEmailAndPassword(newEmail, pw)
+      .then(result => {
+        dispatch({type: 'USER_SIGNUP_PENDING'});
+        axios.post('/api/user', {
+          userName: name,
+          userEmail: email
         })
-        .catch(err => {
-          dispatch({type: 'USER_SIGNUP_REJECTED', payload: err});
-        });
-    })
-    .catch(err => {
-      dispatch({type: 'USER_SIGNUP_REJECTED', payload: err});
-    });
+          .then(({ data }) => {
+            dispatch({type: 'USER_SIGNUP_FULFILLED', payload: data});
+          })
+          .catch(err => {
+            dispatch({type: 'USER_SIGNUP_REJECTED', payload: err});
+          });
+      })
+      .catch(err => {
+        dispatch({type: 'USER_SIGNUP_REJECTED', payload: err});
+      });
+  };
 };
 
 export const emailLogin = (email, pw) => {
   return function(dispatch) {
     auth.signInWithEmailAndPassword(email, pw)
       .then(result => {
-
+        axios.get(`/api/user/${email}`)
+          .then(({ data }) => {
+            dispatch({type: 'USER_LOGIN_FULFILLED', payload: data});
+          })
+          .catch(err => {
+            dispatch({type: 'USER_LOGIN_REJECTED', payload: err});
+          });
       })
+      .catch(err => {
+        dispatch({type: 'USER_LOGIN_REJECTED', payload: err});
+      });
+  };
+};
+
+export const logout = () => {
+  return function(dispatch) {
+    dispatch({type: 'USER_LOGOUT_PENDING'});
+    auth.signOut()
+      .then(() => {
+        dispatch({type: 'USER_LOGOUT_FULFILLED'});
+      })
+      .catch(err => {
+        dispatch({type: 'USER_LOGOUT_REJECTED', payload: err});
+      });
   }
 }
