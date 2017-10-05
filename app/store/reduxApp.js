@@ -2,11 +2,11 @@ import React from 'react';
 import { Provider } from 'react-redux';
 
 import store from './storeConfig';
-import App from '../components/App';
+import AppWithNavigationState from '../navigator/appNavigator';
 
 const ReduxApp = () => (
   <Provider store={store}>
-    <App />
+    <AppWithNavigationState />
   </Provider>
 )
 
