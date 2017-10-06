@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Button, StyleSheet, Text, View, TextInput } from 'react-native';
+
+import * as authActions from '../actions/authActions';
 
 const styles = StyleSheet.create({
   container: {
@@ -13,6 +17,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
+  form: {
+    height: 40, 
+    width: 200, 
+    borderColor: 'black', 
+    borderWidth: 1,
+    backgroundColor: 'white'
+  }
 });
 
 class Login extends Component {
@@ -20,18 +31,62 @@ class Login extends Component {
     super(props);
   }
 
+  componentDidUpdate() {
+    const { loggedIn, navigation } = this.props;
+
+    if (loggedIn) {
+      navigation.goBack();
+    }
+  }
+
   render() {
+    const { navigation, actions, loggingIn, loggedIn } = this.props;
+
     let emailInput = '';
     let pwInput = '';
-    
-    return (
-      <View>
-        <Text>
-          Email
-        </Text>
-      </View>
 
-    )
+    if (loggingIn) {
+      return (
+        <View>
+          <Text>
+            Logging In..
+          </Text>
+        </View>
+      )
+    } else {
+      return (
+        <View>
+          <Text>
+            Email
+          </Text>
+          <TextInput 
+            style={styles.form}
+            autoCorrect={false}
+            keyboardType="email-address"
+            onChangeText={(text) => {
+              emailInput = text;
+            }}
+          />
+          <Text>
+            Password
+          </Text>
+          <TextInput 
+            style={styles.form}
+            autoCorrect={false}
+            secureTextEntry={true}
+            onChangeText={(text) => {
+              pwInput = text;
+            }}
+          />
+          <Button 
+            onPress={() => {
+              actions.emailLogin(emailInput, pwInput);
+            }}
+            title="Log In"
+          />
+        </View>
+      )
+    }
   }
 }
 
@@ -39,4 +94,17 @@ Login.navigationOptions = {
   title: 'Log In',
 };
 
-export default Login;
+const mapPropsToState = (store) => {
+  return {
+    loggingIn: store.Auth.loggingIn,
+    loggedIn: store.Auth.authenticated
+  }
+};
+
+const mapActionsToState = (dispatch) => {
+  return {
+    actions: bindActionCreators(authActions, dispatch),
+  };
+};
+
+export default connect(mapPropsToState, mapActionsToState)(Login);
