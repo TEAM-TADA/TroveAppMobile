@@ -10,7 +10,9 @@ import {
 } from 'react-native';
 
 import Navbar from './NavBar';
+import FeatView from './FeatureView';
 import * as authActions from '../actions/authActions';
+import * as itemActions from '../actions/itemActions';
 
 const styles = StyleSheet.create({
   container: {
@@ -22,6 +24,19 @@ const styles = StyleSheet.create({
   header: {
     color: '#CDB287',
     textAlign: 'center'
+  },
+  feature: {
+    backgroundColor: 'white',
+    alignItems: 'center',
+    flexDirection: 'column'
+  },
+  featText: {
+    color: '#4A4A4A',
+    textAlign: 'center',
+    marginTop: 25,
+    marginBottom: -25,
+    fontSize: 35,
+    fontWeight: 'bold'
   }
 });
 
@@ -37,6 +52,14 @@ class MainView extends Component {
     headerTitleStyle: styles.header,
     headerStyle: {backgroundColor: 'black'},
   }
+
+  componentDidMount() {
+    const { fetched, itemActions } = this.props;
+
+    if (!fetched) {
+      itemActions.fetchItems();
+    }
+  }
   
   componentWillUpdate() {
     const { loggingOut } = this.props;
@@ -47,7 +70,7 @@ class MainView extends Component {
 
   }
   render() {
-    const { navigation, loggedIn, user, actions } = this.props;
+    const { navigation, loggedIn, user, actions, items } = this.props;
 
     return (
       <View style={styles.container}>
@@ -66,8 +89,17 @@ class MainView extends Component {
             <Image source={require('../imgs/carousel/ac6d8673dc47abc2722510c565a13524.jpg')} resizeMethod="resize" resizeMode="contain" />
             <Image source={require('../imgs/carousel/bb5ea3a7615f51e32ceb52d605e708ab.jpg')} resizeMethod="resize" resizeMode="contain" />
           </Carousel>
+          <View style={styles.feature}>
+            <Text style={styles.featText}>
+              FEATURED
+            </Text>
+            <View>
+              {items.map(item => {
+                return item.id % 5 === 0 ? <FeatView item={item} key={item.id} /> : null;
+              })}
+            </View>
+          </View>
           <View>
-            <Text>Hi</Text>
           </View>
         </ScrollView>
       </View>
@@ -80,12 +112,15 @@ const mainState = (store) => {
     loggedIn: store.Auth.authenticated,
     user: store.Auth.user,
     loggingOut: store.Auth.loggingOut,
+    fetched: store.Item.fetched,
+    items: store.Item.items
   }
 }
 
 const mainDispatch = (dispatch) => {
   return {
     actions: bindActionCreators(authActions, dispatch),
+    itemActions: bindActionCreators(itemActions, dispatch),
   }
 }
 
