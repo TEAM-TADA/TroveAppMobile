@@ -1,17 +1,25 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'black',
+  }
+})
 
 class Men extends Component {
   constructor(props) {
     super(props);
   }
 
+  static navigationOptions = {
+    header: null,
+  }
+
   render() {
     return (
-      <View>
-        <Text>
-          Men's View
-        </Text>
+      <View style={styles.container}>
       </View>
     )
   }
