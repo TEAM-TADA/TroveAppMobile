@@ -18,7 +18,7 @@ const authReducer = (state=initialState, action) => {
       return Object.assign({}, state, {
         signingIn: false,
         authenticated: true,
-        user: Object.assign({}, action.payload)
+        user: action.payload
       });
     }
     case 'USER_SIGNUP_REJECTED': {
@@ -55,7 +55,8 @@ const authReducer = (state=initialState, action) => {
     case 'USER_LOGOUT_FULFILLED': {
       return Object.assign({}, state, {
         loggingOut: false,
-        authenticated: false
+        authenticated: false,
+        user: ''
       });
     }
     case 'USER_LOGOUT_REJECTED': {
