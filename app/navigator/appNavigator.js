@@ -26,11 +26,11 @@ class AppWithNavigationState extends Component {
   }
 
   componentDidMount() {
-    BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
+    BackHandler.addEventListener("hardwareBackPress", this.onBackPress.bind(this));
   }
 
   componentWillUnmount() {
-    BackHandler.removeEventListener("hardwareBackPress", this.onBackPress);
+    BackHandler.removeEventListener("hardwareBackPress", this.onBackPress.bind(this));
   }
 
   onBackPress() {
