@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Button, StyleSheet, Text, View, TextInput } from 'react-native';
+import { Button, StyleSheet, Text, View, TextInput, ActivityIndicator, ToastAndroid } from 'react-native';
 
 import * as authActions from '../actions/authActions';
 
@@ -9,20 +9,30 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'black',
   },
-  welcome: {
+  formtext: {
     fontSize: 20,
-    textAlign: 'center',
     margin: 10,
+    color: '#CDB287'
   },
   form: {
     height: 40, 
-    width: 200, 
-    borderColor: 'black', 
+    width: 200,
+    borderRadius: 5, 
+    borderColor: '#CDB287', 
     borderWidth: 1,
-    backgroundColor: 'white'
+    backgroundColor: 'black',
+    color: '#CDB287',
+    textDecorationColor: 'black',
+  },
+  btn: {
+    marginTop: 20,
+    width: 200,
+    backgroundColor: '#CDB287',
+    borderColor: '#CDB287'
   }
 });
 
@@ -31,10 +41,15 @@ class Login extends Component {
     super(props);
   }
 
+  static navigationOptions = {
+    header: null,
+  }
+
   componentDidUpdate() {
-    const { loggedIn, navigation } = this.props;
+    const { loggedIn, navigation, user } = this.props;
 
     if (loggedIn) {
+      ToastAndroid.showWithGravity('Welcome back to TROVE, ' + user, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
       navigation.goBack();
     }
   }
@@ -47,16 +62,18 @@ class Login extends Component {
 
     if (loggingIn) {
       return (
-        <View>
-          <Text>
-            Logging In..
-          </Text>
+        <View style={styles.container}>
+          <ActivityIndicator animating={true} color={'#CDB287'} size={'large'} />
         </View>
+      )
+    } else if (loggedIn) {
+      return (
+        <View style={styles.container}/>
       )
     } else {
       return (
-        <View>
-          <Text>
+        <View style={styles.container}>
+          <Text style={styles.formtext}>
             Email
           </Text>
           <TextInput 
@@ -66,8 +83,12 @@ class Login extends Component {
             onChangeText={(text) => {
               emailInput = text;
             }}
+            underlineColorAndroid={'black'}
+            keyboardAppearance='dark'
+            returnKeyType={'next'}
+            selectionColor="#CDB287"
           />
-          <Text>
+          <Text style={styles.formtext}>
             Password
           </Text>
           <TextInput 
@@ -77,27 +98,40 @@ class Login extends Component {
             onChangeText={(text) => {
               pwInput = text;
             }}
+            underlineColorAndroid={'black'}
+            keyboardAppearance='dark'
+            returnKeyType='done'
+            selectionColor="#CDB287"
           />
-          <Button 
-            onPress={() => {
-              actions.emailLogin(emailInput, pwInput);
-            }}
-            title="Log In"
-          />
+          <View style={styles.btn}>
+            <Button
+              color='#CDB287'
+              onPress={() => {
+                actions.emailLogin(emailInput, pwInput);
+              }}
+              title="Log In"
+            />
+          </View>
+          <View style={styles.btn}>
+            <Button 
+              color='#CDB287'
+              onPress={() => {
+                navigation.navigate('Signup');
+              }}
+              title="Sign Up"
+            />
+          </View>
         </View>
       )
     }
   }
 }
 
-Login.navigationOptions = {
-  title: 'Log In',
-};
-
 const mapPropsToState = (store) => {
   return {
     loggingIn: store.Auth.loggingIn,
-    loggedIn: store.Auth.authenticated
+    loggedIn: store.Auth.authenticated,
+    user: store.Auth.user
   }
 };
 
