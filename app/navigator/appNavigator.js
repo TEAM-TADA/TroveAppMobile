@@ -6,6 +6,8 @@ import { addNavigationHelpers, StackNavigator, NavigationActions } from 'react-n
 import MainView from '../components/Main';
 import LoginView from '../components/Login';
 import MenView from '../components/Men';
+import WomenView from '../components/Women';
+import SignupView from '../components/Signup';
 
 export const AppNavigator = StackNavigator(
   {
@@ -17,7 +19,13 @@ export const AppNavigator = StackNavigator(
     },
     Men: {
       screen: MenView,
-    }
+    },
+    Women: {
+      screen: WomenView,
+    },
+    Signup: {
+      screen: SignupView,
+    },
   },
   {
     headerMode: 'screen',
