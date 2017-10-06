@@ -1,9 +1,9 @@
 const initialState = {
-  loggigIn: false,
+  loggingIn: false,
   loggingOut: false,
   signingIn: false,
   authenticated: false,
-  user: {},
+  user: '',
   error: null,
 }
 
@@ -28,20 +28,22 @@ const authReducer = (state=initialState, action) => {
       })
     }
     case 'USER_LOGIN_PENDING': {
+      console.log('reducer watching logging in');
       return Object.assign({}, state, {
-        loggigIn: true
+        loggingIn: true
       });
     }
     case 'USER_LOGIN_FULFILLED': {
+      console.log('reducer watching logged in');
       return Object.assign({}, state, {
-        loggigIn: false,
+        loggingIn: false,
         authenticated: true,
-        user: Object.assign({}, action.payload)
+        user: action.payload
       });
     }
     case 'USER_LOGIN_REJECTED': {
       return Object.assign({}, state, {
-        loggigIn: false,
+        loggingIn: false,
         error: action.payload
       });
     }
