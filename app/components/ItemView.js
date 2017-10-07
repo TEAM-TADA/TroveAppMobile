@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, Button } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, Button, ToastAndroid } from 'react-native';
 import { connect } from 'react-redux';
 import ActionButton from 'react-native-action-button';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
@@ -139,14 +139,20 @@ class ItemView extends Component {
                 Size: {item.size}
               </Text>
             </View>
-          <View style={styles.tagContainer}>
-            {item.tag.map(t => {
-              return <View><Button title={t} color="gray" /></View>
-            })}
-          </View>
-          <View style={styles.addBtn}>
-            <Button title="Add to Cart" color="red" />
-          </View>
+            <View style={styles.tagContainer}>
+              {item.tag.map(t => {
+                return <View key={t} ><Button title={t} color="gray" 
+                onPress={() => {
+                  ToastAndroid.showWithGravity('Filtering by tag: ' + t.toUpperCase(), ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+                }}/></View>
+              })}
+            </View>
+            <View style={styles.addBtn}>
+              <Button title="Add to Cart" color="red" 
+                onPress={() => {
+                  ToastAndroid.showWithGravity('Item Added to Cart', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+                }}/>
+            </View>
           </View>
         </ScrollView>
         <ActionButton buttonColor="rgba(205, 178, 135, 1)" position="right">
