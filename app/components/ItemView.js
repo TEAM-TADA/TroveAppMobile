@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
   brand: {
     color: '#CDB287',
-    fontSize: 20,
+    fontSize: 30,
     textAlign: 'center',
     marginBottom: 10,
     fontWeight: 'bold'
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     flexDirection: 'row',
-    marginTop: 10
+    marginTop: 30
   },
   sex: {
     marginRight: 5
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   },
   tagContainer: {
     flexDirection: 'row',
-    marginTop: 15,
+    marginTop: 30,
     width: 350,
     justifyContent: 'space-between'
   },
@@ -87,8 +87,8 @@ const styles = StyleSheet.create({
   addBtn: {
     width: 300,
     alignContent: 'center',
-    marginTop: 15,
-    marginBottom: 15
+    marginTop: 30,
+    marginBottom: 30
   }
 })
 
