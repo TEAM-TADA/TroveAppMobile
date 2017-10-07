@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image, Button, ToastAndroid } from 'react-native';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import ActionButton from 'react-native-action-button';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
+
+import * as itemActions from '../actions/itemActions';
 
 const styles = StyleSheet.create({
   container: {
@@ -99,7 +102,7 @@ class ItemView extends Component {
   }
 
   render() {
-    const { item } = this.props;
+    const { item, actions, navigation } = this.props;
 
     return (
       <View style={styles.container}>
@@ -143,7 +146,9 @@ class ItemView extends Component {
               {item.tag.map(t => {
                 return <View key={t} ><Button title={t} color="gray" 
                 onPress={() => {
+                  actions.saveFilter(t);
                   ToastAndroid.showWithGravity('Filtering by tag: ' + t.toUpperCase(), ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+                  navigation.navigate('Filter');
                 }}/></View>
               })}
             </View>
@@ -175,6 +180,12 @@ const itemState = (store) => {
   return {
     item: store.Item.item,
   }
-}
+};
 
-export default connect(itemState)(ItemView);
+const itemDispatch = (dispatch) => {
+  return {
+    actions: bindActionCreators(itemActions, dispatch)
+  }
+};
+
+export default connect(itemState, itemDispatch)(ItemView);
