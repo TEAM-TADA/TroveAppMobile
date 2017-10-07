@@ -4,7 +4,8 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    marginTop: 50,
+    marginTop: 25,
+    marginBottom: 25
   },
   card: {
     flexDirection: 'column',
