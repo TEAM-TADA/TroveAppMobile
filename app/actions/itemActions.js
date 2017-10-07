@@ -13,3 +13,8 @@ export const fetchItems = () => {
   };
 };
 
+export const saveItem = (item) => {
+  return function(dispatch) {
+    dispatch({type: 'SAVE_ITEM', payload: item})
+  };
+};
