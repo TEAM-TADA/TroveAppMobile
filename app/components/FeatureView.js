@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableNativeFeedback } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -42,22 +42,28 @@ class Featureview extends Component {
   }
 
   render() {
-    const { item } = this.props;
+    const { item, navigation, saveItem } = this.props;
     return (
-      <View style={styles.container}>
-        <Image source={{uri: item.image}} style={{width: 300, height: 300}} resizeMethod="resize" resizeMode="contain" />
-        <View style={styles.card}>
-          <Text style={styles.textBrand}>
-            {item.brand}
-          </Text>
-          <Text style={styles.textName}>
-            {item.itemname}
-          </Text>
-          <Text style={styles.textPrice}>
-            ${Math.floor(item.price * 0.07)}
-          </Text>
+      <TouchableNativeFeedback
+        onPress={() => {
+          saveItem(item);
+          navigation.navigate('Item');
+        }}>
+        <View style={styles.container}>
+          <Image source={{uri: item.image}} style={{width: 300, height: 300}} resizeMethod="resize" resizeMode="contain" />
+          <View style={styles.card}>
+            <Text style={styles.textBrand}>
+              {item.brand}
+            </Text>
+            <Text style={styles.textName}>
+              {item.itemname}
+            </Text>
+            <Text style={styles.textPrice}>
+              ${Math.floor(item.price * 0.07)}
+            </Text>
+          </View>
         </View>
-      </View>
+      </TouchableNativeFeedback>
     )
   }
 }
