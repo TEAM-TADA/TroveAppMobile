@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import ActionButton from 'react-native-action-button';
+import FontAwesome, { Icons } from 'react-native-fontawesome';
 
 import FeatureView from './FeatureView';
 
@@ -70,9 +71,15 @@ class Men extends Component {
             })}
           </View>
         </ScrollView>
-        <ActionButton buttonColor="rgba(205, 178, 135, 1)" position="right" >
-          <ActionButton.Item buttonColor="rgba(205, 178, 135, 1)" title="Profile" color="gray">
-            
+        <ActionButton buttonColor="rgba(205, 178, 135, 1)" position="right">
+          <ActionButton.Item buttonColor="rgba(205, 178, 135, 1)">
+            <FontAwesome>{Icons.shoppingCart}</FontAwesome>
+          </ActionButton.Item>
+          <ActionButton.Item buttonColor="rgba(205, 178, 135, 1)">
+            <FontAwesome>{Icons.userMd}</FontAwesome>
+          </ActionButton.Item>
+          <ActionButton.Item buttonColor="rgba(205, 178, 135, 1)">
+            <FontAwesome>{Icons.arrowUp}</FontAwesome>
           </ActionButton.Item>
         </ActionButton>
       </View>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
+import ActionButton from 'react-native-action-button';
+import FontAwesome, { Icons } from 'react-native-fontawesome';
 
 import FeatureView from './FeatureView';
 
@@ -69,6 +71,17 @@ class Women extends Component {
             })}
           </View>
         </ScrollView>
+        <ActionButton buttonColor="rgba(205, 178, 135, 1)" position="right">
+          <ActionButton.Item buttonColor="rgba(205, 178, 135, 1)">
+            <FontAwesome>{Icons.shoppingCart}</FontAwesome>
+          </ActionButton.Item>
+          <ActionButton.Item buttonColor="rgba(205, 178, 135, 1)">
+            <FontAwesome>{Icons.userMd}</FontAwesome>
+          </ActionButton.Item>
+          <ActionButton.Item buttonColor="rgba(205, 178, 135, 1)">
+            <FontAwesome>{Icons.arrowUp}</FontAwesome>
+          </ActionButton.Item>
+        </ActionButton>
       </View>
     )
   }
