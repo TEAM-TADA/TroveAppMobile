@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import ActionButton from 'react-native-action-button';
 
 import FeatureView from './FeatureView';
 
@@ -69,6 +70,11 @@ class Men extends Component {
             })}
           </View>
         </ScrollView>
+        <ActionButton buttonColor="rgba(205, 178, 135, 1)" position="right" >
+          <ActionButton.Item buttonColor="rgba(205, 178, 135, 1)" title="Profile" color="gray">
+            
+          </ActionButton.Item>
+        </ActionButton>
       </View>
     )
   }
