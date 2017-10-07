@@ -6,6 +6,7 @@ import ActionButton from 'react-native-action-button';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 
 import * as itemActions from '../actions/itemActions';
+import * as cartActions from '../actions/cartActions';
 
 const styles = StyleSheet.create({
   container: {
@@ -102,7 +103,7 @@ class ItemView extends Component {
   }
 
   render() {
-    const { item, actions, navigation } = this.props;
+    const { item, actions, navigation, cartActions } = this.props;
 
     return (
       <View style={styles.container}>
@@ -155,13 +156,17 @@ class ItemView extends Component {
             <View style={styles.addBtn}>
               <Button title="Add to Cart" color="red" 
                 onPress={() => {
+                  cartActions.addToCart(item);
                   ToastAndroid.showWithGravity('Item Added to Cart', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
                 }}/>
             </View>
           </View>
         </ScrollView>
         <ActionButton buttonColor="rgba(205, 178, 135, 1)" position="right">
-          <ActionButton.Item buttonColor="rgba(205, 178, 135, 1)">
+          <ActionButton.Item buttonColor="rgba(205, 178, 135, 1)"
+            onPress={() => {
+              navigation.navigate('Cart')
+          }}>
             <FontAwesome>{Icons.shoppingCart}</FontAwesome>
           </ActionButton.Item>
           <ActionButton.Item buttonColor="rgba(205, 178, 135, 1)">
@@ -184,7 +189,8 @@ const itemState = (store) => {
 
 const itemDispatch = (dispatch) => {
   return {
-    actions: bindActionCreators(itemActions, dispatch)
+    actions: bindActionCreators(itemActions, dispatch),
+    cartActions: bindActionCreators(cartActions, dispatch)
   }
 };
 

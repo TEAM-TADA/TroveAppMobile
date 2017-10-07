@@ -74,7 +74,10 @@ class Men extends Component {
           </View>
         </ScrollView>
         <ActionButton buttonColor="rgba(205, 178, 135, 1)" position="right">
-          <ActionButton.Item buttonColor="rgba(205, 178, 135, 1)">
+          <ActionButton.Item buttonColor="rgba(205, 178, 135, 1)" 
+            onPress={() => {
+              navigation.navigate('Cart')
+            }}>
             <FontAwesome>{Icons.shoppingCart}</FontAwesome>
           </ActionButton.Item>
           <ActionButton.Item buttonColor="rgba(205, 178, 135, 1)">
