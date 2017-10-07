@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, Button } from 'react-native';
 import { connect } from 'react-redux';
+import ActionButton from 'react-native-action-button';
+import FontAwesome, { Icons } from 'react-native-fontawesome';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   header: {
     backgroundColor: 'black',
@@ -32,7 +34,58 @@ const styles = StyleSheet.create({
   brand: {
     color: '#CDB287',
     fontSize: 20,
-    textAlign: 'center'
+    textAlign: 'center',
+    marginBottom: 10,
+    fontWeight: 'bold'
+  },
+  owner: {
+    marginTop: 10,
+  },
+  avail: {
+    color: '#CDB287',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 10
+  },
+  infoContainer: {
+    flexDirection: 'row',
+    marginTop: 10
+  },
+  sex: {
+    marginRight: 5
+  },
+  size: {
+    marginLeft: 5
+  },
+  oldPrice: {
+    textDecorationLine: 'line-through',
+    textDecorationStyle: 'solid',
+    fontSize: 40,
+    fontWeight: 'bold',
+    fontStyle: 'italic',
+    color: 'gray',
+    marginRight: 10
+  },
+  newPrice: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: 'black',
+    marginLeft: 10
+  },
+  tagContainer: {
+    flexDirection: 'row',
+    marginTop: 15,
+    width: 350,
+    justifyContent: 'space-between'
+  },
+  tag: {
+    flex: 1
+  },
+  addBtn: {
+    width: 300,
+    alignContent: 'center',
+    marginTop: 15,
+    marginBottom: 15
   }
 })
 
@@ -64,9 +117,49 @@ class ItemView extends Component {
               {item.brand}
             </Text>
             <Image source={{uri: item.image}} style={{width: 300, height: 300}} resizeMethod="resize" resizeMode="contain" />
-
+            <Text style={styles.owner}>
+              Owned by: {item.User.userName}
+            </Text>
+            <Text style={styles.avail}>
+              {item.status === 'Available' ? 'Available!' : 'All Rented Out!'}
+            </Text>
+            <View style={styles.infoContainer}>
+              <Text style={styles.oldPrice}>
+                ${item.price}
+              </Text>
+              <Text style={styles.newPrice}>
+                ${Math.floor(item.price * 0.07)}
+              </Text>
+            </View>
+            <View style={styles.infoContainer}>
+              <Text style={styles.sex}>
+                Sex: {item.sex}
+              </Text>
+              <Text style={styles.size}>
+                Size: {item.size}
+              </Text>
+            </View>
+          <View style={styles.tagContainer}>
+            {item.tag.map(t => {
+              return <View><Button title={t} color="gray" /></View>
+            })}
+          </View>
+          <View style={styles.addBtn}>
+            <Button title="Add to Cart" color="red" />
+          </View>
           </View>
         </ScrollView>
+        <ActionButton buttonColor="rgba(205, 178, 135, 1)" position="right">
+          <ActionButton.Item buttonColor="rgba(205, 178, 135, 1)">
+            <FontAwesome>{Icons.shoppingCart}</FontAwesome>
+          </ActionButton.Item>
+          <ActionButton.Item buttonColor="rgba(205, 178, 135, 1)">
+            <FontAwesome>{Icons.userMd}</FontAwesome>
+          </ActionButton.Item>
+          <ActionButton.Item buttonColor="rgba(205, 178, 135, 1)">
+            <FontAwesome>{Icons.arrowUp}</FontAwesome>
+          </ActionButton.Item>
+        </ActionButton>
       </View>
     )
   }
