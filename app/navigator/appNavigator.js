@@ -10,6 +10,7 @@ import WomenView from '../components/Women';
 import SignupView from '../components/Signup';
 import ItemView from '../components/ItemView';
 import FilterView from '../components/FilterView';
+import CartView from '../components/CartView';
 
 export const AppNavigator = StackNavigator(
   {
@@ -33,6 +34,9 @@ export const AppNavigator = StackNavigator(
     },
     Filter: {
       screen: FilterView,
+    },
+    Cart: {
+      screen: CartView,
     }
   },
   {
