@@ -8,12 +8,11 @@ import {
   ToastAndroid, Dimensions, Image,
   ScrollView
 } from 'react-native';
-import ActionButton from 'react-native-action-button';
-import FontAwesome, { Icons } from 'react-native-fontawesome';
 
 import Navbar from './NavBar';
 import FeatView from './FeatureView';
 import Footer from './Footer';
+import ActionBtn from './ActionButton';
 import * as authActions from '../actions/authActions';
 import * as itemActions from '../actions/itemActions';
 
@@ -114,17 +113,7 @@ class MainView extends Component {
             <Footer />
           </View>
         </ScrollView>
-        <ActionButton buttonColor="rgba(205, 178, 135, 1)" position="right">
-          <ActionButton.Item buttonColor="rgba(205, 178, 135, 1)"
-            onPress={() => {
-              navigation.navigate('Cart')
-          }}>
-            <FontAwesome>{Icons.shoppingCart}</FontAwesome>
-          </ActionButton.Item>
-          <ActionButton.Item buttonColor="rgba(205, 178, 135, 1)">
-            <FontAwesome>{Icons.userMd}</FontAwesome>
-          </ActionButton.Item>
-        </ActionButton>
+        {loggedIn ? <ActionBtn navigation={navigation} /> : null}
       </View>
     )
   }

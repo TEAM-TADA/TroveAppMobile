@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import ActionButton from 'react-native-action-button';
-import FontAwesome, { Icons } from 'react-native-fontawesome';
 
 import FeatureView from './FeatureView';
+import ActionBtn from './ActionButton';
 import * as itemActions from '../actions/itemActions';
 
 const styles = StyleSheet.create({
@@ -50,7 +49,7 @@ class Men extends Component {
   }
 
   render() {
-    const { items, navigation, actions } = this.props;
+    const { items, navigation, actions, loggedIn } = this.props;
 
     return (
       <View style={styles.container}>
@@ -73,20 +72,7 @@ class Men extends Component {
             })}
           </View>
         </ScrollView>
-        <ActionButton buttonColor="rgba(205, 178, 135, 1)" position="right">
-          <ActionButton.Item buttonColor="rgba(205, 178, 135, 1)" 
-            onPress={() => {
-              navigation.navigate('Cart')
-            }}>
-            <FontAwesome>{Icons.shoppingCart}</FontAwesome>
-          </ActionButton.Item>
-          <ActionButton.Item buttonColor="rgba(205, 178, 135, 1)">
-            <FontAwesome>{Icons.userMd}</FontAwesome>
-          </ActionButton.Item>
-          <ActionButton.Item buttonColor="rgba(205, 178, 135, 1)">
-            <FontAwesome>{Icons.arrowUp}</FontAwesome>
-          </ActionButton.Item>
-        </ActionButton>
+        {loggedIn ? <ActionButton navigation={navigation} /> : null}
       </View>
     )
   }
@@ -94,7 +80,8 @@ class Men extends Component {
 
 const menState = (store) => {
   return {
-    items: store.Item.items
+    items: store.Item.items,
+    loggedIn: store.Auth.authenticated
   }
 };
 
