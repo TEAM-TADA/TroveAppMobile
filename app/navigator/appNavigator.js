@@ -8,6 +8,7 @@ import LoginView from '../components/Login';
 import MenView from '../components/Men';
 import WomenView from '../components/Women';
 import SignupView from '../components/Signup';
+import ItemView from '../components/ItemView';
 
 export const AppNavigator = StackNavigator(
   {
@@ -25,6 +26,9 @@ export const AppNavigator = StackNavigator(
     },
     Signup: {
       screen: SignupView,
+    },
+    Item: {
+      screen: ItemView,
     },
   },
   {
