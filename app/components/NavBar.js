@@ -23,7 +23,7 @@ class Navbar extends Component {
   }
 
   render() {
-    const { authenticated, navigation, actions } = this.props;
+    const { authenticated, navigation, logout } = this.props;
 
     if (authenticated) {
       return (
@@ -51,7 +51,7 @@ class Navbar extends Component {
           <Button
             color="#CDB287"
             onPress={() => {
-              actions.logout();
+              logout();
             }}
             title="Logout"
           />
