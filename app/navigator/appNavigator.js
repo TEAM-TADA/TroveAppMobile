@@ -9,6 +9,7 @@ import MenView from '../components/Men';
 import WomenView from '../components/Women';
 import SignupView from '../components/Signup';
 import ItemView from '../components/ItemView';
+import FilterView from '../components/FilterView';
 
 export const AppNavigator = StackNavigator(
   {
@@ -30,6 +31,9 @@ export const AppNavigator = StackNavigator(
     Item: {
       screen: ItemView,
     },
+    Filter: {
+      screen: FilterView,
+    }
   },
   {
     headerMode: 'screen',
