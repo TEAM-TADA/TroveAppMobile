@@ -23,8 +23,14 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   header: {
+    backgroundColor: 'black',
+    height: 50,
+  },
+  headerText: {
     color: '#CDB287',
-    textAlign: 'center'
+    textAlign: 'center',
+    fontSize: 35,
+    fontWeight: 'bold'
   },
   feature: {
     backgroundColor: 'white',
@@ -48,9 +54,7 @@ class MainView extends Component {
   }
 
   static navigationOptions = {
-    headerTitle: 'TROVE',
-    headerTitleStyle: styles.header,
-    headerStyle: {backgroundColor: 'black'},
+    header: null
   }
 
   componentDidMount() {
@@ -74,6 +78,11 @@ class MainView extends Component {
 
     return (
       <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>
+            TROVE
+          </Text>
+        </View>
         {loggedIn ? <Navbar navigation={navigation} authenticated={true} {...actions} /> : <Navbar navigation={navigation} authenticated={false} {...actions} />}
         <ScrollView>
           <Carousel
