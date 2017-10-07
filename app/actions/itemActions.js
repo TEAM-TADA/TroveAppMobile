@@ -18,3 +18,9 @@ export const saveItem = (item) => {
     dispatch({type: 'SAVE_ITEM', payload: item})
   };
 };
+
+export const saveFilter = (filter) => {
+  return function(dispatch) {
+    dispatch({type: 'SAVE_FILTER', payload: filter});
+  };
+};
