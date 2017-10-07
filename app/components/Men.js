@@ -50,7 +50,7 @@ class Men extends Component {
   }
 
   render() {
-    const { items, navigation } = this.props;
+    const { items, navigation, actions } = this.props;
 
     return (
       <View style={styles.container}>
