@@ -76,7 +76,7 @@ class MainView extends Component {
 
   }
   render() {
-    const { navigation, loggedIn, user, actions, items } = this.props;
+    const { navigation, loggedIn, user, actions, items, itemActions } = this.props;
 
     return (
       <View style={styles.container}>
@@ -106,7 +106,7 @@ class MainView extends Component {
             </Text>
             <View>
               {items.map(item => {
-                return item.id % 5 === 0 ? <FeatView item={item} key={item.id} /> : null;
+                return item.id % 5 === 0 ? <FeatView item={item} key={item.id} navigation={navigation} {...itemActions} /> : null;
               })}
             </View>
           </View>

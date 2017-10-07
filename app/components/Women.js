@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import ActionButton from 'react-native-action-button';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 
 import FeatureView from './FeatureView';
+import * as itemActions from '../actions/itemActions';
 
 const styles = StyleSheet.create({
   container: {
@@ -48,7 +50,7 @@ class Women extends Component {
   }
 
   render() {
-    const { items } = this.props;
+    const { items, navigation, actions } = this.props;
 
     return (
       <View style={styles.container}>
@@ -67,7 +69,7 @@ class Women extends Component {
         <ScrollView>
           <View style={styles.viewContainer}>
             {items.map(item => {
-              return item.sex === 'F' ? <FeatureView item={item} key={item.id + 'm'} /> : null;
+              return item.sex === 'F' ? <FeatureView item={item} key={item.id + 'f'} navigation={navigation} {...actions} /> : null;
             })}
           </View>
         </ScrollView>
@@ -87,10 +89,16 @@ class Women extends Component {
   }
 };
 
-const menState = (store) => {
+const womenState = (store) => {
   return {
     items: store.Item.items
   }
 };
 
-export default connect(menState)(Women);
+const womenDispatch = (dispatch) => {
+  return {
+    actions: bindActionCreators(itemActions, dispatch),
+  }
+}
+
+export default connect(womenState, womenDispatch)(Women);

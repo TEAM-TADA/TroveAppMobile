@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import ActionButton from 'react-native-action-button';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 
 import FeatureView from './FeatureView';
+import * as itemActions from '../actions/itemActions';
 
 const styles = StyleSheet.create({
   container: {
@@ -48,7 +50,7 @@ class Men extends Component {
   }
 
   render() {
-    const { items } = this.props;
+    const { items, navigation } = this.props;
 
     return (
       <View style={styles.container}>
@@ -67,7 +69,7 @@ class Men extends Component {
         <ScrollView>
           <View style={styles.viewContainer}>
             {items.map(item => {
-              return item.sex === 'M' ? <FeatureView item={item} key={item.id + 'm'} /> : null;
+              return item.sex === 'M' ? <FeatureView item={item} key={item.id + 'm'} navigation={navigation} {...actions} /> : null;
             })}
           </View>
         </ScrollView>
@@ -93,4 +95,10 @@ const menState = (store) => {
   }
 };
 
-export default connect(menState)(Men);
+const menDispatch = (dispatch) => {
+  return {
+    actions: bindActionCreators(itemActions, dispatch),
+  }
+}
+
+export default connect(menState, menDispatch)(Men);
