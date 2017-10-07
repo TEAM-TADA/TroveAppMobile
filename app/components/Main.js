@@ -11,6 +11,7 @@ import {
 
 import Navbar from './NavBar';
 import FeatView from './FeatureView';
+import Footer from './Footer';
 import * as authActions from '../actions/authActions';
 import * as itemActions from '../actions/itemActions';
 
@@ -34,10 +35,9 @@ const styles = StyleSheet.create({
     color: '#4A4A4A',
     textAlign: 'center',
     marginTop: 25,
-    marginBottom: -25,
     fontSize: 35,
     fontWeight: 'bold'
-  }
+  },
 });
 
 const { width, height } = Dimensions.get('window');
@@ -100,6 +100,7 @@ class MainView extends Component {
             </View>
           </View>
           <View>
+            <Footer />
           </View>
         </ScrollView>
       </View>
