@@ -3,6 +3,7 @@ const initialState = {
   fetched: false,
   items: [],
   item: {},
+  filter: '',
   error: null
 }
 
@@ -30,6 +31,11 @@ const itemReducer = (state=initialState, action) => {
     case 'SAVE_ITEM': {
       return Object.assign({}, state, {
         item: action.payload
+      })
+    }
+    case 'SAVE_FILTER': {
+      return Object.assign({}, state, {
+        filter: action.payload
       })
     }
     default: {
